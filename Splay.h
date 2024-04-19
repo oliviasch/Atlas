@@ -1,17 +1,21 @@
 #pragma once
+#include <iostream>
 #include <string>
+#include <queue>
 #include <utility>
 #include "Node.h"
 class Splay{
 private:
-    Node* root = nullptr;
+    Node* root;
+    Node* splay(Node* helpRoot);
     Node* helperInsert(Node* helpRoot, std::string country, double data);
     void helperDelete(Node* helpRoot);
-    void helperLevelOrder(Node* helpRoot);
-    static Node* splay(Node* helpRoot);
+    static void helperLevelOrder(Node* helpRoot);
+    void rotateLeft(Node* helpRoot);
+    void rotateRight(Node* helpRoot);
 public:
     Splay() : root(nullptr) {}
-    void insert();
+    void insert(std::string country, double data);
     void deleteTree();
     void levelOrder();
 };
