@@ -3,7 +3,6 @@ struct Node{
     // Data forming the tree
     std::string country;
     double data;
-
     // All data collected about a country
     int year;
     double co2;
@@ -14,6 +13,7 @@ struct Node{
     // Tree-specific attributes
     Node* left;
     Node* right;
+    Node* parent;
     // constructor initializer, data to equal whatever is of interest or smth
-    Node(std::string country, double data) : country(std::move(country)), data(data), left(nullptr), right(nullptr){}
+    Node(std::string country, double data) : country(std::move(country)), data(data), left(nullptr), right(nullptr), parent(nullptr){}
 };
