@@ -1,0 +1,3 @@
+C:/Users/olivi/Desktop/2024 spring/1. COP3530/projects/atlas/cmake-build-debug/CMakeFiles/atlas.dir
+C:/Users/olivi/Desktop/2024 spring/1. COP3530/projects/atlas/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/olivi/Desktop/2024 spring/1. COP3530/projects/atlas/cmake-build-debug/CMakeFiles/rebuild_cache.dir
