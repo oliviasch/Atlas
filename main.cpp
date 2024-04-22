@@ -26,14 +26,19 @@ int main() {
     file.close();
     std::string interest;
     std::cin >> interest;
+    std::string year;
+    std::cin >> year;
     std::vector<Node> data = Node::readFile(csv, interest);
     // deallocate vector memory
     csv.clear();
     // splay testing - delete later
     Splay splay;
     for (const Node& val : data){
-        splay.insert(val.country, val.data);
+        if (val.year == year){ // if the year is our target
+            splay.insert(val.country, val.data);
+        }
     }
     splay.levelOrder();
     // to recreate the tree with a different data of interest, we need to do data = Node::readFile(csv, interest) again
+    splay.deleteTree();
 }
