@@ -88,7 +88,7 @@ void Splay::helperSearch(Node* helpRoot, const std::string& country) {
         Node* current = q.front();
         q.pop();
         if (current->country == country) {
-            std::cout << current->data << " "; // Assuming you want to print data
+            std::cout << current->data << " Splay"; // Assuming you want to print data
         }
         if (current->left) { q.push(current->left); }
         if (current->right) { q.push(current->right); }
