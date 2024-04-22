@@ -98,20 +98,22 @@ void Splay::helperSearch(Node* helpRoot, const std::string& country) {
 Node *Splay::helperSearchData(Node *helpRoot, const std::string &data) {
     // if the tree is empty
     if (helpRoot == nullptr) {
-        return nullptr;
+        std::cout << "";
     }
-        // else if the target matches the country
+        // val is integer ufid
+        // else if the target matches the root node's data
+    else if (data == helpRoot->data) {
+        // return the country with the data
+        std::cout << helpRoot->country << "\n";
+    }
+        // else if the target is less than the root node's data
+    else if (data < helpRoot->data) {
+        // return the result of searching the left subtree of the root
+        helperSearchData(helpRoot->left, data);
+    }
     else {
-        if (data == helpRoot->data) {
-            // return the data stored at the root node
-            std::cout << helpRoot->country << "\n";
-            helpRoot = splay(helpRoot);
-            return helpRoot;
-        }
-        // visit left subtree
-        helperSearch(helpRoot->left, data);
-        // visit right subtree
-        helperSearch(helpRoot->right, data);
+        // return the result of searching the right subtree of the root
+        helperSearchData(helpRoot->right, data);
     }
     return helpRoot;
 }
