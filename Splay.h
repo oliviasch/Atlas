@@ -9,7 +9,7 @@ private:
     Node* root;
     Node* splay(Node* helpRoot);
     Node* helperInsert(Node* helpRoot, std::string country, std::string data);
-    static void helperSearch(Node* helpRoot, const std::string& country);
+    void helperSearch(Node* helpRoot, const std::string& country);
     Node* helperSearchData(Node* helpRoot, const std::string& data);
     void helperDelete(Node* helpRoot);
     static void helperLevelOrder(Node* helpRoot);

@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -5,19 +6,15 @@
 #include "Node.h"
 #include "Splay.h"
 #include "RBTree.h"
-#include <chrono>
-
 void printMenu() {
     std::cout << "Analyze CO2 Emissions with Atlas" << std::endl;
     std::cout << "Enter 1 to view data specification requirements" << std::endl;
     std::cout << "Enter 2 to create a Splay and Red Black tree based on your chosen year and data category" << std::endl;
     std::cout << "Enter 3 to search a country's data based on your chosen year and data category" << std::endl;
-    std::cout << "Enter 4 to search if a data point exists in your chosen year and data category:" << std::endl;
-    std::cout << "Enter 5 to delete the pre-existing trees (choose if interested in a new year and data category" << std::endl;
+    std::cout << "Enter 4 to search if a data point exists in your chosen year and data category" << std::endl;
+    std::cout << "Enter 5 to delete the pre-existing trees (choose if interested in a new year and data category)" << std::endl;
     std::cout << "Enter 6 to exit the program" << std::endl;
-    std::cout << "Enter 7 to learn what you can use this program for" << std::endl;
 }
-
 int main() {
     // open csv file
     std::ifstream file("owid-co2-data.csv");
@@ -38,10 +35,9 @@ int main() {
         csv.push_back(row);
     }
     file.close();
-
+    // initializes trees
     Splay splay;
     RBTree RB;
-
     // clion interface
     printMenu();
     std::string userInput;
@@ -78,8 +74,6 @@ int main() {
             std::string year;
             std::cin >> year;
             std::vector<Node> data = Node::readFile(csv, interest);
-            // deallocate vector memory
-            csv.clear();
             // splay insertions
             auto splayInsertStart = std::chrono::steady_clock::now();
             for (const Node& val : data){
@@ -113,7 +107,7 @@ int main() {
             auto splaySearchEnd = std::chrono::steady_clock::now();
             auto splaySearchTime = std::chrono::duration_cast<std::chrono::microseconds>(splaySearchEnd - splaySearchStart);
             // print timer
-            std::cout << "Splay Tree search time: " << splaySearchTime.count() << " microseconds" << std::endl;
+            std::cout << "Splay tree search time: " << splaySearchTime.count() << " microseconds" << std::endl;
             // RB searches
             auto RBSearchStart = std::chrono::steady_clock::now();
             RB.search(RB.root, country);
@@ -143,16 +137,18 @@ int main() {
         }
         else if (userInput == "5") {
             splay.deleteTree();
-        }
-        else if (userInput == "7") {
-            std::cout << "ijsjd" << std::endl;
+            RB.deleteTree(RB.root);
         }
         else {
-            std::cout << "Invalid option. Please enter a new digit from 1-7, inclusive." << std::endl;
+            std::cout << "Invalid option. Please enter a new digit from 1-6, inclusive." << std::endl;
         }
+        std::cout << std::endl;
         printMenu();
         std::cin >> userInput;
     }
-
+    csv.clear();
+    // deallocate memory
+    splay.deleteTree();
+    RB.deleteTree(RB.root);
     return 0;
 }

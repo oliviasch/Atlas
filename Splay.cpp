@@ -88,12 +88,13 @@ void Splay::helperSearch(Node* helpRoot, const std::string& country) {
         Node* current = q.front();
         q.pop();
         if (current->country == country) {
-            std::cout << current->data << " Splay"; // Assuming you want to print data
+            std::cout << "Splay tree search: " << current->data;
+            helpRoot = splay(helpRoot);
         }
-        if (current->left) { q.push(current->left); }
-        if (current->right) { q.push(current->right); }
+        if (current->left) { q.push(current->left); } // traverses left subtree
+        if (current->right) { q.push(current->right); } // traverses right subtree
     }
-    std::cout << std::endl; // Assuming you want a newline after printing all matching nodes
+    std::cout << std::endl;
 }
 Node *Splay::helperSearchData(Node *helpRoot, const std::string &data) {
     // if the tree is empty
@@ -105,6 +106,7 @@ Node *Splay::helperSearchData(Node *helpRoot, const std::string &data) {
     else if (data == helpRoot->data) {
         // return the country with the data
         std::cout << helpRoot->country << " Splay" << "\n";
+        helpRoot = splay(helpRoot);
     }
         // else if the target is less than the root node's data
     else if (data < helpRoot->data) {

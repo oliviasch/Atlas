@@ -39,7 +39,7 @@ Node* RBTree::rotateLeft(Node* helpRoot){
     return helpRoot;
 }
 Node* RBTree::rotateRight(Node* helpRoot){
-        Node temp = *(helpRoot->left);
+    Node temp = *(helpRoot->left);
     helpRoot->left = temp.right;
     temp.right = helpRoot;
     temp.color = helpRoot->color;
@@ -51,7 +51,7 @@ void RBTree::flipColors(Node* helpRoot){
     helpRoot->left->color = !helpRoot->left->color;
     helpRoot->right->color = !helpRoot->right->color;
 }
-void RBTree::search(Node* helpRoot, std::string country){
+void RBTree::search(Node* helpRoot, const std::string& country){
     if (!helpRoot) { return; }
     std::queue<Node*> q;
     q.push(helpRoot);
@@ -59,7 +59,7 @@ void RBTree::search(Node* helpRoot, std::string country){
         Node* current = q.front();
         q.pop();
         if (current->country == country) {
-            std::cout << current->data << " RB Tree"; // Assuming you want to print data
+            std::cout << "RB tree search: " << current->data;
         }
         if (current->left) { q.push(current->left); }
         if (current->right) { q.push(current->right); }
@@ -100,5 +100,10 @@ void RBTree::levelOrder(Node* helpRoot){
         if (current->right){ q.push(current->right); }
     }
 }
-
+void RBTree::deleteTree(Node* helpRoot){
+    if (!helpRoot){ return; }
+    deleteTree(helpRoot->left);
+    deleteTree(helpRoot->right);
+    delete(helpRoot);
+}
 
