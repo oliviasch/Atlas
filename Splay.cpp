@@ -80,6 +80,26 @@ void Splay::rotateRight(Node *helpRoot){
     newParent->right = helpRoot;
     helpRoot->parent = newParent;
 }
+Node *Splay::helperSearch(Node *helpRoot, const std::string& country) {
+    // if the tree is empty
+    if (helpRoot == nullptr) {
+        return nullptr;
+    }
+    // else if the target matches the country
+    else {
+        if (country == helpRoot->country) {
+            // return the data stored at the root node
+            std::cout << helpRoot->data << "\n";
+            splay(helpRoot);
+            return helpRoot;
+        }
+        // visit left subtree
+        helperSearch(helpRoot->left, country);
+        // visit right subtree
+        helperSearch(helpRoot->right, country);
+    }
+    return helpRoot;
+}
 // memory management
 void Splay::deleteTree(){
     helperDelete(this->root);
@@ -107,3 +127,6 @@ void Splay::helperLevelOrder(Node* helpRoot){
 // public methods
 void Splay::insert(std::string country, std::string data){ this->root = helperInsert(this->root, std::move(country), std::move(data)); }
 void Splay::levelOrder(){ helperLevelOrder(this->root); }
+void Splay::search(const std::string& country) {
+    helperSearch(this->root, country);
+}
