@@ -4,6 +4,7 @@
 #include <string>
 #include "Node.h"
 #include "Splay.h"
+#include "RBTree.h"
 int main() {
     // open csv file
     std::ifstream file("owid-co2-data.csv");
@@ -25,22 +26,25 @@ int main() {
     }
     file.close();
     std::cout << "Type the data of interest" << std::endl;
-    std::string interest = "co2";
-    //std::cin >> interest;
+    std::string interest;
+    std::cin >> interest;
     std::cout << "Type the year of interest" << std::endl;
-    std::string year = "2000";
-    //std::cin >> year;
+    std::string year;
+    std::cin >> year;
     std::vector<Node> data = Node::readFile(csv, interest);
     // deallocate vector memory
     csv.clear();
     // splay testing - delete later
     Splay splay;
+    RBTree RB;
     for (const Node& val : data){
         if (val.year == year){ // if the year is our target
             splay.insert(val.country, val.data);
+            RB.insert(RB.root, val.country, val.data);
         }
     }
-    splay.levelOrder();
+    splay.search("Zimbabwe");
+    RB.search(RB.root, "Zimbabwe");
     // to recreate the tree with a different data of interest, we need to do data = Node::readFile(csv, interest) again
     splay.deleteTree();
 }
