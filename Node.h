@@ -6,10 +6,12 @@
 struct Node{
     // constructor initializer
     Node(std::string country, std::string data) : country(std::move(country)), data(std::move(data)), left(nullptr), right(nullptr), parent(nullptr){}
+    Node(std::string country, std::string data, bool color) : country(std::move(country)), data(std::move(data)), color(color), left(nullptr), right(nullptr), parent(nullptr){}
     // tree-specific attributes
     Node* left;
     Node* right;
     Node* parent;
+    bool color;
     // data forming the tree
     std::string country;
     std::string data;
