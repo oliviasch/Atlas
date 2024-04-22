@@ -24,19 +24,12 @@ int main() {
         csv.push_back(row);
     }
     file.close();
-
     std::cout << "Type the data of interest" << std::endl;
-    std::string interest;
-    std::cin >> interest;
-
-    std::cout << "Type the country of interest" << std::endl;
-    std::string country;
-    std::cin >> country;
-
+    std::string interest = "co2";
+    //std::cin >> interest;
     std::cout << "Type the year of interest" << std::endl;
-    std::string year;
-    std::cin >> year;
-
+    std::string year = "2000";
+    //std::cin >> year;
     std::vector<Node> data = Node::readFile(csv, interest);
     // deallocate vector memory
     csv.clear();
@@ -47,7 +40,6 @@ int main() {
             splay.insert(val.country, val.data);
         }
     }
-    splay.search(country);
     splay.levelOrder();
     // to recreate the tree with a different data of interest, we need to do data = Node::readFile(csv, interest) again
     splay.deleteTree();
