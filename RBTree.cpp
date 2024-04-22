@@ -66,6 +66,20 @@ void RBTree::search(Node* helpRoot, std::string country){
     }
     std::cout << std::endl;
 }
+Node* RBTree::searchData(Node *helpRoot, const std::string& data) {
+    if (helpRoot == nullptr) {
+        return nullptr;
+    }
+    else{
+        if(data == helpRoot->data) {
+            std::cout << helpRoot->country << std::endl;
+            return helpRoot;
+        }
+        searchData(helpRoot->left, data);
+        searchData(helpRoot->right, data);
+    }
+    return helpRoot;
+}
 void RBTree::levelOrder(Node* helpRoot){
     if (!helpRoot){ return; }
     std::queue<Node*> q;
