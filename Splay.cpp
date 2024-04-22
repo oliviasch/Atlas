@@ -95,6 +95,26 @@ void Splay::helperSearch(Node* helpRoot, const std::string& country) {
     }
     std::cout << std::endl; // Assuming you want a newline after printing all matching nodes
 }
+Node *Splay::helperSearchData(Node *helpRoot, const std::string &data) {
+    // if the tree is empty
+    if (helpRoot == nullptr) {
+        return nullptr;
+    }
+        // else if the target matches the country
+    else {
+        if (data == helpRoot->data) {
+            // return the data stored at the root node
+            std::cout << helpRoot->country << "\n";
+            helpRoot = splay(helpRoot);
+            return helpRoot;
+        }
+        // visit left subtree
+        helperSearch(helpRoot->left, data);
+        // visit right subtree
+        helperSearch(helpRoot->right, data);
+    }
+    return helpRoot;
+}
 // memory management
 void Splay::deleteTree(){
     helperDelete(this->root);
@@ -123,3 +143,6 @@ void Splay::helperLevelOrder(Node* helpRoot){
 void Splay::insert(std::string country, std::string data){ this->root = helperInsert(this->root, std::move(country), std::move(data)); }
 void Splay::levelOrder(){ helperLevelOrder(this->root); }
 void Splay::search(const std::string& country) { helperSearch(this->root, country); }
+void Splay::searchData(const std::string& data) {
+    helperSearchData(this->root, data);
+}
