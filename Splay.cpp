@@ -104,7 +104,7 @@ Node *Splay::helperSearchData(Node *helpRoot, const std::string &data) {
         // else if the target matches the root node's data
     else if (data == helpRoot->data) {
         // return the country with the data
-        std::cout << helpRoot->country << "\n";
+        std::cout << helpRoot->country << " Splay" << "\n";
     }
         // else if the target is less than the root node's data
     else if (data < helpRoot->data) {

@@ -93,7 +93,6 @@ struct Node{
     std::string total_ghg;
     std::string total_ghg_excl_lucf;
     std::string trade_co2;
-    std::string trade_co2_share;
     // read csv file
     static std::vector<Node> readFile(const std::vector<std::vector<std::string>>& csv, const std::string& attribute);
 };

@@ -81,7 +81,6 @@ std::vector<Node> Node::readFile(const std::vector<std::vector<std::string>>& cs
             {"total_ghg", &Node::total_ghg},
             {"total_ghg_excl_lucf", &Node::total_ghg_excl_lucf},
             {"trade_co2", &Node::trade_co2},
-            {"trade_co2_share", &Node::trade_co2_share}
     };
     // move data into vector of data objects
     for (const auto& row : csv) {
@@ -165,8 +164,6 @@ std::vector<Node> Node::readFile(const std::vector<std::vector<std::string>>& cs
         dataObj.total_ghg = row[75];
         dataObj.total_ghg_excl_lucf = row[76];
         dataObj.trade_co2 = row[77];
-        // what():  std::bad_alloc instance if this is not commented? not sure why
-        //dataObj.trade_co2_share = row[78];
         // initializes data of interest to user specification
         auto it = attributes.find(attribute);
         if (it != attributes.end()){ dataObj.data = dataObj.*(it->second); }

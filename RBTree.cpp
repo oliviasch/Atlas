@@ -67,15 +67,23 @@ void RBTree::search(Node* helpRoot, std::string country){
     std::cout << std::endl;
 }
 Node* RBTree::searchData(Node *helpRoot, const std::string& data) {
+    // if the tree is empty
     if (helpRoot == nullptr) {
-        return nullptr;
+        std::cout << "";
     }
-    else{
-        if(data == helpRoot->data) {
-            std::cout << helpRoot->country << std::endl;
-            return helpRoot;
-        }
+        // val is integer ufid
+        // else if the target matches the root node's data
+    else if (data == helpRoot->data) {
+        // return the country with the data
+        std::cout << helpRoot->country << " RB" << "\n";
+    }
+        // else if the target is less than the root node's data
+    else if (data < helpRoot->data) {
+        // return the result of searching the left subtree of the root
         searchData(helpRoot->left, data);
+    }
+    else {
+        // return the result of searching the right subtree of the root
         searchData(helpRoot->right, data);
     }
     return helpRoot;
