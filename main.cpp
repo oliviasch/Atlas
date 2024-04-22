@@ -99,9 +99,10 @@ int main() {
         }
         else if (userInput == "3") {
             // splay searches
-            std::string country;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // ignore userInput
             std::cout << "Enter the country of interest: " << std::endl;
-            std::cin >> country;
+            std::string country;
+            std::getline(std::cin, country);
             auto splaySearchStart = std::chrono::steady_clock::now();
             splay.search(country);
             auto splaySearchEnd = std::chrono::steady_clock::now();
