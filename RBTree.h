@@ -11,5 +11,6 @@ class RBTree{
         void flipColors(Node* helpRoot);
         void levelOrder(Node* helpRoot);
         static void search(Node* helpRoot, std::string country);
+        Node* searchData(Node* helpRoot, const std::string& data);
         RBTree() : root(nullptr){};
 };
