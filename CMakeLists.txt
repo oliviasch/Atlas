@@ -8,4 +8,6 @@ add_executable(atlas main.cpp
         Splay.cpp
         Node.h
         Node.cpp
+        RBTree.h
+        RBTree.cpp
 )
