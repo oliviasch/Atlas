@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <style>
+        html, body, #map { height: 100%; margin: 0; }
+        #map-container {
+            position: relative;
+            height: 100%;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        .control-box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000; /* Ensure the control box is above the map */
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .control-select {
+            display: block;
+            margin-bottom: 5px;
+            width: 150px; /* Adjust width as needed */
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+<div id="output"></div>
+<script>
+    fetch('http://localhost:8080/api', { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').innerText = data.message;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
+<div id="map-container">
+    <div id="map"></div>
+    <div class="control-box">
+        <select class="control-select js-select2" id="searchCountry" multiple="multiple">
+            <option value="population">population</option>
+            <option value="gdp">gdp</option>
+            <option value="cement_co2">cement_co2</option>
+            <option value="cement_co2_capita">cement_co2_capita</option>
+            <option value="co2">co2</option>
+            <option value="co2_growth_abs">co2_growth_abs</option>
+            <option value="co2_growth_prct">co2_growth_prct</option>
+            <option value="co2_incl_luc">co2_incl_luc</option>
+            <option value="co2_incl_luc_growth_abs">co2_incl_luc_growth_abs</option>
+            <option value="co2_incl_luc_growth_pcrt">co2_incl_luc_growth_pcrt</option>
+            <option value="co2_incl_luc_per_capita">co2_incl_luc_per_capita</option>
+            <option value="co2_incl_luc_per_gdp">co2_incl_luc_per_gdp</option>
+            <option value="co2_incl_luc_per_unit_energy">co2_incl_luc_per_unit_energy</option>
+            <option value="co2_per_capita">co2_per_capita</option>
+            <option value="co2_per_gdp">co2_per_gdp</option>
+            <option value="co2_per_unit_energy">co2_per_unit_energy</option>
+            <option value="coal_co2">coal_co2</option>
+            <option value="coal_co2_per_capita">coal_co2_per_capita</option>
+            <option value="consumption_co2">consumption_co2</option>
+            <option value="consumption_co2_per_capita">consumption_co2_per_capita</option>
+            <option value="consumption_co2_per_gdp">consumption_co2_per_gdp</option>
+            <option value="cum_cement_co2">cum_cement_co2</option>
+            <option value="cum_co2">cum_co2</option>
+            <option value="cum_co2_incl_luc">cum_co2_incl_luc</option>
+            <option value="cum_coal_co2">cum_coal_co2</option>
+            <option value="cum_flaring_co2">cum_flaring_co2</option>
+            <option value="cum_gas_co2">cum_gas_co2</option>
+            <option value="cum_luc_co2">cum_luc_co2</option>
+            <option value="cum_oil_co2">cum_oil_co2</option>
+            <option value="cum_other_co2">cum_other_co2</option>
+            <option value="energy_per_capita">energy_per_capita</option>
+            <option value="energy_per_gdp">energy_per_gdp</option>
+            <option value="flaring_co2">flaring_co2</option>
+            <option value="flaring_co2_per_capita">flaring_co2_per_capita</option>
+            <option value="gas_co2">gas_co2</option>
+            <option value="gas_co2_per_capita">gas_co2_per_capita</option>
+            <option value="ghg_ecl_lucf_per_capita">ghg_ecl_lucf_per_capita</option>
+            <option value="ghg_per_capita">ghg_per_capita</option>
+            <option value="land_use_change_co2">land_use_change_co2</option>
+            <option value="land_use_change_co2_per_capita">land_use_change_co2_per_capita</option>
+            <option value="methane">methane</option>
+            <option value="methane_per_capita">methane_per_capita</option>
+            <option value="nitrous_oxide">nitrous_oxide</option>
+            <option value="nitrous_oxide_per_capita">nitrous_oxide_per_capita</option>
+            <option value="oil_co2">oil_co2</option>
+            <option value="oil_co2_per_capita">oil_co2_per_capita</option>
+            <option value="other_co2_per_capita">other_co2_per_capita</option>
+            <option value="other_industry_co2">other_industry_co2</option>
+            <option value="primary_energy_consumption">primary_energy_consumption</option>
+            <option value="share_global_cement_co2">share_global_cement_co2</option>
+            <option value="share_global_co2">share_global_co2</option>
+            <option value="share_global_co2_incl_luc">share_global_co2_incl_luc</option>
+            <option value="share_global_coal_co2">share_global_coal_co2</option>
+            <option value="share_global_cum_cement_co2">share_global_cum_cement_co2</option>
+            <option value="share_global_cum_co2">share_global_cum_co2</option>
+            <option value="share_global_cum_co2_incl_luc">share_global_cum_co2_incl_luc</option>
+            <option value="share_global_cum_coal_co2">share_global_cum_coal_co2</option>
+            <option value="share_global_cum_flaring_co2">share_global_cum_flaring_co2</option>
+            <option value="share_global_cum_gas_co2">share_global_cum_gas_co2</option>
+            <option value="share_global_cum_luc_co2">share_global_cum_luc_co2</option>
+            <option value="share_global_cum_oil_co2">share_global_cum_oil_co2</option>
+            <option value="share_global_cum_other_co2">share_global_cum_other_co2</option>
+            <option value="share_global_flaring_co2">share_global_flaring_co2</option>
+            <option value="share_global_gas_co2">share_global_gas_co2</option>
+            <option value="share_global_luc_co2">share_global_luc_co2</option>
+            <option value="share_global_oil_co2">share_global_oil_co2</option>
+            <option value="share_global_other_co2">share_global_other_co2</option>
+            <option value="share_of_temperature_change_from_ghg">share_of_temperature_change_from_ghg</option>
+            <option value="temperature_change_from_ch4">temperature_change_from_ch4</option>
+            <option value="temperature_change_from_co2">temperature_change_from_co2</option>
+            <option value="temperature_change_from_ghg">temperature_change_from_ghg</option>
+            <option value="temperature_change_from_n2o">temperature_change_from_n2o</option>
+            <option value="total_ghg">total_ghg</option>
+            <option value="total_ghg_excl_lucf">total_ghg_excl_lucf</option>
+            <option value="trade_co2">trade_co2</option>
+            <option value="trade_co2_share">trade_co2_share</option>
+        </select>
+        <input type="text" placeholder="Search Year" class="control-input" id="searchYear">
+        <button onclick="sendData()">Send Data</button>
+    </div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<script src="app.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.js-select2').select2({
+            placeholder: 'Select options', // Placeholder text
+            allowClear: true, // Option to clear selected values
+            width: '100%', // Set the width of the dropdown
+            dropdownAutoWidth: true, // Adjusts the dropdown width based on content
+            minimumResultsForSearch: Infinity // Hides the search input
+        });
+    });
+</script>
+<h1>WebSocket Client</h1>
+<div id="messages"></div>
+<script>
+    const ws = new WebSocket('ws://localhost:8080');
+
+    ws.onopen = function() {
+        console.log('Connected to WebSocket server');
+    };
+
+    ws.onmessage = function(event) {
+        console.log('Received: ', event.data);
+        document.getElementById('messages').innerHTML += '<p>' + event.data + '</p>';
+    };
+
+    ws.onerror = function(error) {
+        console.error('WebSocket error:', error);
+    };
+
+    ws.onclose = function(event) {
+        console.log('WebSocket closed:', event);
+    };
+    // Example: Send a message to the server
+    function sendMessage() {
+        const message = prompt('Enter message to send:');
+        if (message) {
+            ws.send(message);
+        }
+    }
+</script>
+</body>
+</html>
