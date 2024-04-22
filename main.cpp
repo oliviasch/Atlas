@@ -37,14 +37,43 @@ int main() {
     // splay testing - delete later
     Splay splay;
     RBTree RB;
+
+    // insertions
+    auto splayStartTime = std::chrono::steady_clock::now();
     for (const Node& val : data){
         if (val.year == year){ // if the year is our target
             splay.insert(val.country, val.data);
+        }
+    }
+    auto splayEndTime = std::chrono::steady_clock::now();
+    auto splayDuration = std::chrono::duration_cast<std::chrono::microseconds>(splayEndTime - splayStartTime);
+    // print timer
+    std::cout << "Splay tree insert time: " << splayDuration.count() << " microseconds" << std::endl;
+    auto RBStartTime = std::chrono::steady_clock::now();
+    for (const Node& val : data){
+        if (val.year == year){ // if the year is our target
             RB.insert(RB.root, val.country, val.data);
         }
     }
+    auto RBEndTime = std::chrono::steady_clock::now();
+    auto RBDuration = std::chrono::duration_cast<std::chrono::microseconds>(RBEndTime - RBStartTime);
+    // print timer
+    std::cout << "Red black tree insert time: " << RBDuration.count() << " microseconds" << std::endl;
+
+    // searches
+    splayStartTime = std::chrono::steady_clock::now();
     splay.search("Zimbabwe");
+    splayEndTime = std::chrono::steady_clock::now();
+    splayDuration = std::chrono::duration_cast<std::chrono::microseconds>(splayEndTime - splayStartTime);
+    // print timer
+    std::cout << "Splay tree search time: " << splayDuration.count() << " microseconds" << std::endl;
+    RBStartTime = std::chrono::steady_clock::now();
     RB.search(RB.root, "Zimbabwe");
+    RBEndTime = std::chrono::steady_clock::now();
+    RBDuration = std::chrono::duration_cast<std::chrono::microseconds>(RBEndTime - RBStartTime);
+    
+    // print timer
+    std::cout << "Red black tree insert time: " << RBDuration.count() << " microseconds" << std::endl;
     // to recreate the tree with a different data of interest, we need to do data = Node::readFile(csv, interest) again
     splay.deleteTree();
 }
