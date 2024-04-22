@@ -115,6 +115,7 @@ int main() {
             auto RBSearchTime = std::chrono::duration_cast<std::chrono::microseconds>(RBSearchEnd - RBSearchStart);
             // print timer
             std::cout << "Red Black tree search time: " << RBSearchTime.count() << " microseconds" << std::endl;
+            //RB.levelOrder(RB.root);
         }
         else if (userInput == "4") {
             std::string data;
@@ -137,7 +138,7 @@ int main() {
         }
         else if (userInput == "5") {
             splay.deleteTree();
-            RB.deleteTree(RB.root);
+            RB.deleteTree();
         }
         else {
             std::cout << "Invalid option. Please enter a new digit from 1-6, inclusive." << std::endl;
@@ -149,6 +150,6 @@ int main() {
     csv.clear();
     // deallocate memory
     splay.deleteTree();
-    RB.deleteTree(RB.root);
+    RB.deleteTree();
     return 0;
 }

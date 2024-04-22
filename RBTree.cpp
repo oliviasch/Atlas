@@ -1,5 +1,5 @@
 #include "RBTree.h"
-Node* RBTree::insert(Node* helpRoot, std::string country, std::string data){
+Node* RBTree::insert(Node* helpRoot, const std::string& country, const std::string& data){
     if(!root){
         root = new Node(country, data, false);
         return root;
@@ -71,7 +71,7 @@ Node* RBTree::searchData(Node *helpRoot, const std::string& data) {
     if (helpRoot == nullptr) {
         std::cout << "";
     }
-        // val is integer ufid
+        // val is integer data
         // else if the target matches the root node's data
     else if (data == helpRoot->data) {
         // return the country with the data
@@ -100,10 +100,18 @@ void RBTree::levelOrder(Node* helpRoot){
         if (current->right){ q.push(current->right); }
     }
 }
-void RBTree::deleteTree(Node* helpRoot){
-    if (!helpRoot){ return; }
-    deleteTree(helpRoot->left);
-    deleteTree(helpRoot->right);
-    delete(helpRoot);
+
+void RBTree::deleteTree() {
+    deleteTree(root);
+    root = nullptr;  // Resetting the root pointer to nullptr after deleting the tree
 }
+void RBTree::deleteTree(Node* helpRoot) {
+    if (!helpRoot) {
+        return;
+    }
+    deleteTree(helpRoot->left);  // Recursively delete the left subtree
+    deleteTree(helpRoot->right);  // Recursively delete the right subtree
+    delete helpRoot;  // Delete the current node
+}
+
 
