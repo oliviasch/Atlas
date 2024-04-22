@@ -32,9 +32,24 @@
             display: block;
             margin-bottom: 5px;
             width: 150px; /* Adjust width as needed */
+            height: 200px; /* Adjust height as needed */
             padding: 5px;
             border: 1px solid #ccc;
             border-radius: 3px;
+            font-family: Georgia, 'Times New Roman', Times, serif; 
+            font-size: 16px; 
+        }
+        .control-input {
+            font-family: Georgia, 'Times New Roman', Times, serif; 
+            font-size: 16px; 
+        }
+        .timer-box {
+            padding: 5px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: Georgia, 'Times New Roman', Times, serif; 
+            font-size: 16px; 
         }
     </style>
 </head>
@@ -42,6 +57,7 @@
 <div id="map-container">
     <div id="map"></div>
     <div class="control-box">
+        <p style="font-size: 16px; font-family: Georgia, 'Times New Roman', Times, serif;"></pstyle>Choose data to analyze</p>
         <select class="control-select js-select2" id="searchCountry" multiple="multiple">
             <option value="population">population</option>
             <option value="gdp">gdp</option>
@@ -120,9 +136,14 @@
             <option value="trade_co2">trade_co2</option>
             <option value="trade_co2_share">trade_co2_share</option>
         </select>
-        <input type="text" placeholder="Search Year" class="control-input" id="searchYear">
+        <input type="text" placeholder="Search 'Country, Year'" class="control-input" id="searchYear">
+        <div class="timer-box">
+            <p>Splay Tree Time: </p>
+        </div>
+        <div class="timer-box">
+            <p>Red Black Tree Time: </p>
+        </div>
     </div>
-
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
