@@ -101,7 +101,6 @@ Node *Splay::helperSearchData(Node *helpRoot, const std::string &data) {
     if (helpRoot == nullptr) {
         std::cout << "";
     }
-        // val is integer ufid
         // else if the target matches the root node's data
     else if (data == helpRoot->data) {
         // return the country with the data
